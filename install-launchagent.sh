@@ -31,8 +31,8 @@ cat > "$PLIST" <<PLIST
 PLIST
 
 launchctl bootstrap "gui/$(id -u)" "$PLIST"
-sleep 2
-if launchctl print "gui/$(id -u)/$LABEL" 2>/dev/null | grep -q "state = running"; then
+sleep 4
+if pgrep -f "$BIN" >/dev/null 2>&1; then
   echo "running. It will start automatically at every login."
 else
   echo "installed, but not running yet. Grant Accessibility to the binary itself:"
