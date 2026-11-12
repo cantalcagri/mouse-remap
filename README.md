@@ -20,8 +20,19 @@ swiftc -O remap.swift -o remap
 ./remap                         # first run asks for Accessibility for Terminal; grant it, run again
 ```
 
-Stop with Ctrl+C or `pkill -f "/remap$"`. To start at login, add the `remap`
-binary under System Settings > General > Login Items.
+Stop with Ctrl+C or `pkill -f "/remap$"`.
+
+## Keep it running at login
+
+```sh
+./install-launchagent.sh          # installs a LaunchAgent: starts at login, restarts if it exits
+./install-launchagent.sh remove   # undo
+```
+
+When launched this way the binary runs on its own, so Accessibility must be
+granted to the `remap` binary itself: System Settings > Privacy & Security >
+Accessibility > "+" > pick the `remap` file. launchd retries until it works.
+Log: `~/Library/Logs/mouse-remap.log`.
 
 `./remap --learn` prints the number of each button you press, if your mouse
 reports buttons differently.
